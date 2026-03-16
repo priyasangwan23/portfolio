@@ -1,16 +1,64 @@
-# React + Vite
+# 🌐 Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my personal portfolio repository!
+This project showcases my **projects, technical skills, and development journey** as a developer.
 
-Currently, two official plugins are available:
+## 🚀 About the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This portfolio website is designed to highlight my work, experience, and skills in **Full stack development**. It includes details about my projects, technologies I work with, and ways to contact me.
 
-## React Compiler
+The goal of this portfolio is to create a central place where people can explore my work and learn more about my capabilities as a developer.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+* Responsive and modern UI
+* Projects showcase section
+* Skills and technologies section
+* Contact information
+* Clean and organized design
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+Technologies used in this project:
+
+* HTML
+* CSS
+* JavaScript
+* React.js 
+* Git & GitHub
+
+
+
+```
+
+## 🌍 Live Demo
+
+You can view the live portfolio here:
+
+🔗 https://portfolio-priyasangwan.netlify.app/
+
+
+
+## 📬 Contact
+
+If you'd like to connect with me:
+
+* LinkedIn: https://www.linkedin.com/in/priya-sangwan-a38037395/
+* Email: sangwanpriya200@gmail.com
+* GitHub: https://github.com/priyasangwan23
+
+## ⭐ Contributing
+
+Contributions, suggestions, and feedback are always welcome!
+
+## Author
+
+Priya Sangwan
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+
