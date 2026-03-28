@@ -9,7 +9,60 @@ const Footer = () => {
       <div className="container">
         <div className="footer-content">
           <div className="footer-logo">
-            <span>&lt;</span>Priya<span> /&gt;</span>
+            <svg
+              className="logo-svg"
+              width="36"
+              height="36"
+              viewBox="0 0 42 42"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="Priya logo"
+            >
+              <defs>
+                <radialGradient id="footerLogoGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#818cf8" stopOpacity="0" />
+                </radialGradient>
+                <linearGradient id="footerPGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#3b82f6" />
+                  <stop offset="100%" stopColor="#818cf8" />
+                </linearGradient>
+                <filter id="footerGlow">
+                  <feGaussianBlur stdDeviation="1.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <circle cx="21" cy="21" r="20" fill="url(#footerLogoGlow)" />
+              <circle
+                cx="21"
+                cy="21"
+                r="19"
+                stroke="url(#footerPGrad)"
+                strokeWidth="1"
+                strokeDasharray="12 4"
+                strokeLinecap="round"
+                opacity="0.6"
+                className="logo-ring"
+              />
+              <circle cx="21" cy="21" r="16" stroke="url(#footerPGrad)" strokeWidth="0.6" opacity="0.25" />
+              <text
+                x="19"
+                y="24"
+                fontFamily="'Inter', 'Segoe UI', sans-serif"
+                fontWeight="900"
+                fontSize="23"
+                fill="#ffffff"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                letterSpacing="-0.05em"
+              >
+                PS
+              </text>
+              <circle cx="35" cy="13" r="3.5" fill="#60a5fa" />
+            </svg>
           </div>
           
           <p className="footer-description">

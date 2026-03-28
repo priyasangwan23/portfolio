@@ -5,9 +5,9 @@
 }
 
 :root {
-  --primary-color: #0ea5e9;
-  --primary-dark: #0369a1;
-  --primary-light: #38bdf8;
+  --primary-color: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --primary-light: #60a5fa;
   --bg-dark: #0a0a0a;
   --bg-darker: #050505;
   --bg-light: #1a1a1a;
@@ -39,15 +39,22 @@ html {
 }
 
 section {
-  padding: 80px 0;
+  padding: 40px 0;
+}
+
+/* Hero wrapper must NOT have extra padding — it manages its own */
+#home {
+  padding: 0;
 }
 
 .section-title {
-  font-size: 3rem;
+  font-size: 2.4rem; /* Increased from 2rem */
   font-weight: 800;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   color: var(--text-primary);
+  text-transform: uppercase; /* Added for better distinction */
+  letter-spacing: 0.15rem; /* Added for clear hierarchy */
 }
 
 .section-title span {

@@ -1,0 +1,100 @@
+/* ============================================
+   CUSTOM CURSOR
+   ============================================ */
+
+/* ── Dot (snaps instantly to pointer) ── */
+.cursor-dot {
+  position: fixed;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #60a5fa;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease,
+    background 0.25s ease, top 0.2s ease, left 0.2s ease;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+.cursor-dot.cursor-visible {
+  opacity: 1;
+}
+
+.cursor-dot.cursor-hovering {
+  width: 20px;
+  height: 20px;
+  top: -10px;
+  left: -10px;
+  background: #818cf8;
+}
+
+.cursor-dot.cursor-clicking {
+  width: 8px;
+  height: 8px;
+  top: -4px;
+  left: -4px;
+  background: #ffffff;
+}
+
+/* ── Ring (lags behind with lerp) ── */
+.cursor-ring {
+  position: fixed;
+  top: -22px;
+  left: -22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(96, 165, 250, 0.7);
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.35s cubic-bezier(0.34,1.56,0.64,1),
+    height 0.35s cubic-bezier(0.34,1.56,0.64,1),
+    top 0.35s ease, left 0.35s ease,
+    border-color 0.3s ease, background 0.3s ease;
+  will-change: transform;
+}
+
+.cursor-ring.cursor-visible {
+  opacity: 1;
+}
+
+.cursor-ring.cursor-hovering {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: -30px;
+  border-color: rgba(129, 140, 248, 0.9);
+  background: rgba(129, 140, 248, 0.06);
+}
+
+.cursor-ring.cursor-clicking {
+  width: 30px;
+  height: 30px;
+  top: -15px;
+  left: -15px;
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Sparkle burst ── */
+@keyframes sparkleOut {
+  0%   { transform: translate(-50%, -50%) rotate(var(--angle)) translateX(0) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) rotate(var(--angle)) translateX(40px) scale(0); opacity: 0; }
+}
+
+.cursor-sparkle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #60a5fa, #818cf8);
+  pointer-events: none;
+  z-index: 99997;
+  animation: sparkleOut 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: center;
+}

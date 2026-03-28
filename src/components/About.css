@@ -1,63 +1,385 @@
+/* ============================================================
+   ABOUT SECTION — Timeline + Stat Rings + Tag Cloud
+   ============================================================ */
+
 .about {
-  background: linear-gradient(to bottom, var(--bg-dark), var(--bg-light));
+  background: transparent !important;
+  position: relative;
+  overflow-x: hidden;
+  padding: 80px 0 60px;
 }
 
-.about-content {
-  max-width: 1000px;
-  margin: 0 auto;
+/* ── Header ── */
+.about-header {
+  text-align: center;
+  margin-bottom: 64px;
 }
 
-.about-card {
-  margin-bottom: 60px;
+.about-eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.08);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  padding: 5px 18px;
+  border-radius: 100px;
+  margin-bottom: 14px;
 }
 
-.about-text {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-  line-height: 1.8;
-}
-
-.about-text:last-child {
+.about .section-title {
   margin-bottom: 0;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
+/* ── Scroll animation base ── */
+.animate-on-scroll {
+  opacity: 0;
+  transition: opacity 0.75s ease-out, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--item-delay, 0s);
 }
 
-.stat-card {
+.fade-down  { transform: translateY(-50px); }
+.fade-up    { transform: translateY(50px);  }
+.slide-left { transform: translateX(-50px); }
+.slide-right{ transform: translateX(50px);  }
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Split layout ── */
+.about-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* ============================================================
+   LEFT — Vertical Timeline
+   ============================================================ */
+.about-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.about-timeline-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding-bottom: 24px;
+}
+
+.about-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Track: node + vertical line */
+.timeline-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.timeline-node {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1.5px solid rgba(96, 165, 250, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #60a5fa;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  position: relative;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.about-timeline-item:hover .timeline-node {
+  background: rgba(96, 165, 250, 0.18);
+  border-color: #60a5fa;
+  box-shadow: 0 0 20px rgba(96, 165, 250, 0.35);
+  transform: scale(1.1);
+}
+
+.timeline-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-line {
+  width: 1.5px;
+  flex: 1;
+  min-height: 28px;
+  margin-top: 8px;
+  background: linear-gradient(to bottom, rgba(56,189,248,0.4), rgba(129,140,248,0.1));
+}
+
+/* Content */
+.timeline-content {
+  padding-top: 6px;
+}
+
+.timeline-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.about-timeline-item:hover .timeline-title {
+  color: #60a5fa;
+}
+
+.timeline-text {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.75;
+}
+
+/* ============================================================
+   RIGHT — Stat Rings + Tag Cloud
+   ============================================================ */
+.about-right {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* ── Stat orbit layout ── */
+.about-stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stat-orbit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-ring {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.stat-track {
+  fill: none;
+  stroke: rgba(96, 165, 250, 0.1);
+  stroke-width: 5;
+}
+
+@keyframes arcDraw {
+  from { stroke-dashoffset: 264; }
+  to   { stroke-dashoffset: var(--target-offset, 100); }
+}
+
+.stat-fill {
+  fill: none;
+  stroke: url(#arcGrad);
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.6));
+}
+
+/* Gradient for SVG strokes — defined inline is tricky so we use a color approach */
+.stat-fill { stroke: #60a5fa; }
+.stat-orbit:nth-child(2) .stat-fill { stroke: #818cf8; }
+.stat-orbit:nth-child(3) .stat-fill { stroke: #a78bfa; }
+
+.stat-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
   text-align: center;
-  padding: 30px 20px;
 }
 
 .stat-number {
-  font-size: 3rem;
+  font-size: 1.7rem;
   font-weight: 800;
-  color: var(--primary-color);
-  margin-bottom: 10px;
+  background: linear-gradient(135deg, #60a5fa, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.stat-orbit:nth-child(2) .stat-number {
+  background: linear-gradient(135deg, #818cf8, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.stat-orbit:nth-child(3) .stat-number {
+  background: linear-gradient(135deg, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .stat-label {
-  font-size: 1.1rem;
-  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #cbd5e1;
+  margin-top: 4px;
 }
 
-@media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.stat-sublabel {
+  font-size: 0.65rem;
+  color: #64748b;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-@media (max-width: 480px) {
-  .stats-grid {
+/* ── Tag cloud ── */
+.about-tags {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(96, 165, 250, 0.1);
+  border-radius: 20px;
+  padding: 24px 28px;
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-tags::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(56,189,248,0.04) 0%, rgba(129,140,248,0.04) 100%);
+  pointer-events: none;
+}
+
+.tags-heading {
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  color: #60a5fa;
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@keyframes tagPop {
+  from { opacity: 0; transform: scale(0.7) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.about-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border-radius: 100px;
+  background: rgba(96, 165, 250, 0.07);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  color: #93c5fd;
+  transition: background 0.25s ease, border-color 0.25s ease,
+    color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  animation: tagPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  animation-delay: var(--tag-delay, 0s);
+}
+
+.about-tag:hover {
+  background: rgba(96, 165, 250, 0.18);
+  border-color: #60a5fa;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px rgba(96, 165, 250, 0.25);
+}
+
+/* ── Decorative orb ── */
+.about-glow-orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(129,140,248,0.12) 0%, transparent 70%);
+  top: -60px;
+  right: -80px;
+  pointer-events: none;
+  animation: orbFloat 8s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+@keyframes orbFloat {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(20px, 30px) scale(1.1); }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 960px) {
+  .about-split {
     grid-template-columns: 1fr;
+    gap: 48px;
   }
-  
+
+  .about-right {
+    gap: 36px;
+  }
+
+  .slide-left,
+  .slide-right {
+    transform: translateY(40px);
+  }
+}
+
+@media (max-width: 600px) {
+  .about-stats {
+    gap: 24px;
+  }
+
+  .stat-ring {
+    width: 110px;
+    height: 110px;
+  }
+
   .stat-number {
-    font-size: 2.5rem;
+    font-size: 1.4rem;
+  }
+
+  .about-tags {
+    padding: 20px;
   }
 }

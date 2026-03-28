@@ -1,17 +1,11 @@
-import { useState } from 'react'
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaSpinner, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa'
+import { useState, useEffect, useRef } from 'react'
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaSpinner, FaCheckCircle, FaExclamationCircle, FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
 import './Contact.css'
 
-// ============================================================
-// 🔑 Web3Forms Access Key
-// Get yours free: https://web3forms.com/#start
-//   1. Enter your email on the page
-//   2. Check your inbox for the access key
-//   3. Paste it below
-// ============================================================
 const WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY'
 
 const Contact = () => {
+  const sectionRef = useRef(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,6 +14,26 @@ const Contact = () => {
   })
   const [status, setStatus] = useState('idle') // idle | sending | success | error
   const [errorMsg, setErrorMsg] = useState('')
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          } else {
+            entry.target.classList.remove('visible')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const elements = sectionRef.current.querySelectorAll('.contact-animate')
+    elements.forEach((el) => observer.observe(el))
+
+    return () => elements.forEach((el) => observer.unobserve(el))
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -66,14 +80,14 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact" ref={sectionRef}>
       <div className="container">
-        <h2 className="section-title">
+        <h2 className="section-title contact-animate fade-down">
           Get In <span>Touch</span>
         </h2>
 
         <div className="contact-content">
-          <div className="contact-info">
+          <div className="contact-info contact-animate slide-left">
             <h3 className="contact-info-title">Let's discuss your project</h3>
             
             <div className="contact-details">
@@ -82,8 +96,8 @@ const Contact = () => {
                   <FaEnvelope className="contact-icon" />
                 </div>
                 <div>
-                  <h4>Email</h4>
-                  <a href="mailto:sangwanpriya200@gmail.com">
+                  <h4 className="label-small">Email</h4>
+                  <a href="mailto:sangwanpriya200@gmail.com" className="contact-link">
                     sangwanpriya200@gmail.com
                   </a>
                 </div>
@@ -94,8 +108,8 @@ const Contact = () => {
                   <FaPhone className="contact-icon" />
                 </div>
                 <div>
-                  <h4>Phone</h4>
-                  <a href="tel:8307538372">
+                  <h4 className="label-small">Phone</h4>
+                  <a href="tel:8307538372" className="contact-link">
                     +91 8307538372
                   </a>
                 </div>
@@ -106,17 +120,16 @@ const Contact = () => {
                   <FaMapMarkerAlt className="contact-icon" />
                 </div>
                 <div>
-                  <h4>Location</h4>
-                  <p>Sonepat, Haryana, India</p>
+                  <h4 className="label-small">Location</h4>
+                  <p className="contact-text">Sonepat, Haryana, India</p>
                 </div>
               </div>
             </div>
 
-            <div className="availability card">
-              <h4>Availability</h4>
-              <p>
-                I'm currently available for freelance work and full-time opportunities. 
-                Feel free to reach out for collaborations or just to say hi!
+            <div className="availability card contact-animate fade-up delay-1">
+              <h4 className="label-small">Availability</h4>
+              <p className="contact-text">
+                I'm currently available for freelance search and full-time opportunities.
               </p>
               <div className="availability-status">
                 <div className="status-dot"></div>
@@ -125,56 +138,56 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="contact-form-wrapper card">
+          <div className="contact-form-wrapper card contact-animate slide-right">
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="form-row">
                 <div className="form-group">
-                  <label>Your Name *</label>
+                  <label>Your Name</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    placeholder="Enter your name"
+                    placeholder="John Doe"
                     disabled={status === 'sending'}
                   />
                 </div>
                 <div className="form-group">
-                  <label>Your Email *</label>
+                  <label>Your Email</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder="Enter your email"
+                    placeholder="john@example.com"
                     disabled={status === 'sending'}
                   />
                 </div>
               </div>
 
               <div className="form-group">
-                <label>Subject *</label>
+                <label>Subject</label>
                 <input
                   type="text"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  placeholder="What is this regarding?"
+                  placeholder="How can I help you?"
                   disabled={status === 'sending'}
                 />
               </div>
 
               <div className="form-group">
-                <label>Your Message *</label>
+                <label>Your Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows="6"
+                  rows="4"
                   placeholder="Tell me about your project..."
                   disabled={status === 'sending'}
                 ></textarea>
@@ -183,7 +196,7 @@ const Contact = () => {
               {status === 'success' && (
                 <div className="form-status form-success">
                   <FaCheckCircle />
-                  <span>Message sent successfully! I'll get back to you soon.</span>
+                  <span>Success! I'll get back to you soon.</span>
                 </div>
               )}
 
