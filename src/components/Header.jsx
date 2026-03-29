@@ -38,30 +38,14 @@ const Header = ({ activeSection, setActiveSection }) => {
       <nav className="navbar container">
         {/* Logo — Left */}
         <div className="nav-logo" onClick={() => handleNavClick('home')}>
-          <svg
-            className="logo-svg"
-            width="42"
-            height="42"
-            viewBox="0 0 42 42"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="PS logo"
-          >
-            <text
-              x="19"
-              y="24"
-              fontFamily="'Inter', system-ui, sans-serif"
-              fontWeight="900"
-              fontSize="23"
-              fill="#ffffff"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              letterSpacing="-0.05em"
-            >
-              PS
-            </text>
-            <circle cx="35" cy="13" r="3.5" fill="#60a5fa" />
-          </svg>
+          <div className="logo-image-wrapper">
+            <img
+              src="https://res.cloudinary.com/dlx4sw12g/image/upload/v1770362923/priya_pic_xwpxno.jpg"
+              alt="Priya Sangwan"
+              className="logo-img"
+            />
+            <div className="logo-ring"></div>
+          </div>
         </div>
 
         {/* Nav Links — Center */}
@@ -77,12 +61,24 @@ const Header = ({ activeSection, setActiveSection }) => {
               <span className="nav-link-underline" />
             </button>
           ))}
+          
+          {/* Mobile-only Resume Button inside menu */}
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resume-btn mobile-only"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <span className="resume-btn-shimmer" />
+            <span className="resume-btn-label">Resume ↗</span>
+          </a>
         </div>
 
-        {/* Resume — Right */}
-        <div className="nav-right">
+        {/* Resume — Right (Desktop only) */}
+        <div className="nav-right desktop-only">
           <a
-            href="https://docs.google.com/document/d/1K8bslAiLJwXuwFyAuP0FHh5mN_k1iGyjxBxZUTIthi8/edit?usp=sharing"
+            href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="resume-btn"

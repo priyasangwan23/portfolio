@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaCode, FaGraduationCap, FaGlobe } from 'react-icons/fa'
 import './About.css'
 
 const stats = [
-  { number: '10+', label: 'Projects', sublabel: 'Shipped' },
-  { number: '10+', label: 'Technologies', sublabel: 'Mastered' },
-  { number: '24/7', label: 'Learning', sublabel: 'Mindset' },
+  { target: 10, suffix: '+', label: 'Projects', sublabel: 'Shipped' },
+  { target: 12, suffix: '+', label: 'Technologies', sublabel: 'Mastered' },
+  { target: 24, suffix: '/7', label: 'Learning', sublabel: 'Mindset' },
 ]
 
 const traits = [
@@ -16,8 +16,39 @@ const traits = [
 
 const tags = ['React', 'Node.js', 'MongoDB', 'Express', 'JavaScript', 'TypeScript', 'REST APIs', 'Git', 'Tailwind', 'Cloud']
 
+const CountUp = ({ target, suffix, isVisible }) => {
+  const [count, setCount] = useState(0)
+  
+  useEffect(() => {
+    if (!isVisible) return
+    
+    let start = 0
+    const duration = 2000
+    const increment = target / (duration / 16)
+    
+    const timer = setInterval(() => {
+      start += increment
+      if (start >= target) {
+        setCount(target)
+        clearInterval(timer)
+      } else {
+        setCount(Math.floor(start))
+      }
+    }, 16)
+    
+    return () => clearInterval(timer)
+  }, [isVisible, target])
+
+  return (
+    <span className="stat-number">
+      {count}{suffix}
+    </span>
+  )
+}
+
 const About = () => {
   const sectionRef = useRef(null)
+  const [isStatsVisible, setIsStatsVisible] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,15 +56,18 @@ const About = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible')
-          } else {
-            entry.target.classList.remove('visible')
+            if (entry.target.classList.contains('about-stats')) {
+              setIsStatsVisible(true)
+            }
           }
         })
       },
-      { threshold: 0.12 }
+      { threshold: 0.15 }
     )
+    
     const els = sectionRef.current.querySelectorAll('.animate-on-scroll')
     els.forEach(el => observer.observe(el))
+    
     return () => els.forEach(el => observer.unobserve(el))
   }, [])
 
@@ -89,12 +123,12 @@ const About = () => {
                         className="stat-fill"
                         cx="50" cy="50" r="42"
                         strokeDasharray="264"
-                        strokeDashoffset={264 - 264 * (0.55 + i * 0.15)}
+                        strokeDashoffset={isStatsVisible ? (264 - 264 * (0.55 + i * 0.15)) : 264}
                         style={{ '--delay': `${i * 0.2}s` }}
                       />
                     </svg>
                     <div className="stat-inner">
-                      <span className="stat-number">{s.number}</span>
+                      <CountUp target={s.target} suffix={s.suffix} isVisible={isStatsVisible} />
                       <span className="stat-label">{s.label}</span>
                       <span className="stat-sublabel">{s.sublabel}</span>
                     </div>

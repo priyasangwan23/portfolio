@@ -49,7 +49,7 @@ const Skills = () => {
     <section id="skills" className="skills" ref={sectionRef}>
       <div className="container">
         <h2 className="section-title animate-on-scroll fade-down">
-          Tech <span>Galaxy</span>
+          Tech <span>Skills</span>
         </h2>
         
         <div className="galaxy-container animate-on-scroll fade-up">

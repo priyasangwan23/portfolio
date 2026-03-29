@@ -81,7 +81,7 @@
   padding: 10px 28px;
 }
 
-/* ---- Logo (Left) ---- */
+/* ---- Logo (Photo) ---- */
 .nav-logo {
   display: flex;
   align-items: center;
@@ -89,14 +89,47 @@
   justify-self: start;
 }
 
-.logo-svg {
-  transition: transform 0.4s ease, filter 0.4s ease;
-  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.3));
+.logo-image-wrapper {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
 }
 
-.nav-logo:hover .logo-svg {
-  animation: logoSpin 0.5s ease forwards;
-  filter: drop-shadow(0 0 14px rgba(96, 165, 250, 0.65));
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1.5px solid rgba(96, 165, 250, 0.5);
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+  z-index: 2;
+}
+
+.logo-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px dashed rgba(96, 165, 250, 0.4);
+  animation: logoRingSpin 10s linear infinite;
+  z-index: 1;
+}
+
+@keyframes logoRingSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.nav-logo:hover .logo-image-wrapper {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.nav-logo:hover .logo-img {
+  border-color: #60a5fa;
+  box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
 }
 
 /* ---- Nav Links (Center) ---- */
@@ -160,7 +193,7 @@
   background: linear-gradient(90deg, #60a5fa, #818cf8);
 }
 
-/* ---- Resume Button (Right) ---- */
+/* ---- Resume Button ---- */
 .nav-right {
   display: flex;
   justify-content: flex-end;
@@ -187,7 +220,6 @@
   animation: navFadeDown 0.5s 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Shimmer sweep */
 .resume-btn-shimmer {
   position: absolute;
   inset: 0;
@@ -223,49 +255,72 @@
   z-index: 1;
 }
 
-/* ---- Hamburger (Mobile) ---- */
+/* ---- Utilities ---- */
+.mobile-only {
+  display: none !important;
+}
+
+.desktop-only {
+  display: flex !important;
+}
+
+/* ---- Hamburger (Mobile Toggle) ---- */
 .menu-toggle {
   display: none;
   background: none;
   border: none;
-  color: rgba(203, 213, 225, 0.85);
-  font-size: 1.4rem;
+  color: #60a5fa;
+  font-size: 1.6rem;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 8px;
-  transition: color 0.2s ease, background 0.2s ease;
+  padding: 8px;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2000; /* Staying above EVERYTHING to toggle close */
+  position: relative;
 }
 
 .menu-toggle:hover {
-  color: #60a5fa;
-  background: rgba(96, 165, 250, 0.08);
+  background: rgba(96, 165, 250, 0.12);
+  transform: scale(1.1);
 }
 
 .hamburger-icon {
   display: flex;
   align-items: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
 }
 
 .hamburger-icon.open {
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(1.15);
+  color: #cbd5e1;
 }
 
 /* ============================================
-   RESPONSIVE — Mobile
+   RESPONSIVE — Mobile Adjustments
    ============================================ */
-@media (max-width: 900px) {
+@media (max-width: 960px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: inline-flex !important;
+  }
+
   .menu-toggle {
     display: block;
+    justify-self: end;
   }
 
-  /* Override grid for mobile: logo + hamburger */
+  .nav-logo {
+    justify-self: start;
+    z-index: 2000; /* Staying visible above menu if needed */
+  }
+
+  /* Override grid for mobile layout */
   .navbar {
     grid-template-columns: auto 1fr auto;
-  }
-
-  .nav-right {
-    display: none;
+    gap: 0;
   }
 
   .nav-menu {
@@ -274,18 +329,23 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(6, 6, 14, 0.97);
-    backdrop-filter: blur(24px);
+    height: 100vh;
+    width: 100vw;
+    background: rgba(6, 6, 12, 0.98);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding: 2rem;
-    gap: 0.5rem;
+    padding: 2.5rem;
+    gap: 0.8rem;
     transform: translateY(-100%);
     opacity: 0;
     visibility: hidden;
-    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.35s ease, visibility 0.45s ease;
-    z-index: 999;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s ease, visibility 0.5s ease;
+    z-index: 1500; /* Beneath menu-toggle but above other sections */
   }
 
   .nav-menu.active {
@@ -296,20 +356,43 @@
 
   .nav-link {
     width: 100%;
+    max-width: 280px;
     text-align: center;
-    font-size: 1.3rem;
-    padding: 14px 20px;
+    font-size: 1.6rem;
+    padding: 16px 24px;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.05), transparent);
+    color: #cbd5e1;
   }
 
-  .nav-menu.active .resume-btn {
-    display: inline-flex;
-    margin-top: 1.5rem;
-    font-size: 1rem;
-    padding: 12px 32px;
+  .nav-link.active {
+    color: #60a5fa;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.12), transparent);
   }
 
-  /* Show resume inside mobile menu */
-  .nav-menu::after {
-    content: '';
+  /* Mobile Resume inside menu */
+  .nav-menu .resume-btn {
+    margin-top: 2.5rem;
+    padding: 14px 40px;
+    font-size: 1.1rem;
+    width: auto;
+    max-width: 240px;
+    background: rgba(96, 165, 250, 0.14);
+    border-color: rgba(96, 165, 250, 0.6);
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 18px;
+  }
+  
+  .logo-svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-link {
+    font-size: 1.4rem;
+    padding: 12px 20px;
   }
 }

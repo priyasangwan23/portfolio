@@ -261,25 +261,46 @@ const Projects = () => {
     },
   ]
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+    const els = sectionRef.current.querySelectorAll('.animate-on-scroll')
+    els.forEach(el => observer.observe(el))
+    return () => els.forEach(el => observer.unobserve(el))
+  }, [])
+
   return (
-    <section className="projects" ref={sectionRef}>
+    <section className="projects" ref={sectionRef} id="projects">
       <div className="container">
-        <h2 className="section-title">
+        <h2 className="section-title animate-on-scroll fade-down">
           My <span>Projects</span>
         </h2>
-        <p className="projects-subtitle">
+        <p className="projects-subtitle animate-on-scroll fade-up">
           Ideas turned into real-world applications
         </p>
 
         <div className="projects-grid">
           {projects.map((project, index) => (
-            <ProjectTile
-              key={index}
-              project={project}
-              index={index}
-              activeVideo={activeVideo}
-              setActiveVideo={setActiveVideo}
-            />
+            <div 
+              key={index} 
+              className="animate-on-scroll fade-up"
+              style={{ '--item-delay': `${(index % 3) * 0.1}s` }}
+            >
+              <ProjectTile
+                project={project}
+                index={index}
+                activeVideo={activeVideo}
+                setActiveVideo={setActiveVideo}
+              />
+            </div>
           ))}
         </div>
       </div>

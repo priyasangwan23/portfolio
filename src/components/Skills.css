@@ -6,57 +6,68 @@
 }
 
 .galaxy-container {
-  height: 600px;
+  height: 440px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 20px;
+  perspective: 2000px; /* Increased perspective depth */
+}
+
+/* Base group tilted for horizontal view */
+.galaxy-center, .orbit, .skills-floating {
+  transform-style: preserve-3d;
+  transform: rotateX(58deg); /* Slightly less flat (from 65) to prevent vertical stacking */
 }
 
 .galaxy-center {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
+  transform: rotateX(58deg) translateZ(40px); /* Lift core slightly more */
 }
 
 .core-glow {
   position: absolute;
-  width: 150%;
-  height: 150%;
+  width: 160%;
+  height: 160%;
   background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
-  filter: blur(30px);
+  filter: blur(35px);
   animation: pulseCore 4s ease-in-out infinite;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .core-icon {
-  font-size: 3.5rem;
+  font-size: 3.2rem;
   color: var(--primary-color);
   filter: drop-shadow(0 0 15px var(--primary-color));
   z-index: 11;
+  transform: rotateX(-58deg);
 }
 
 @keyframes pulseCore {
-  0%, 100% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.3); opacity: 0.7; }
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50% { transform: scale(1.35); opacity: 0.6; }
 }
 
-/* Orbital Rings */
+/* Orbital Rings — Increased width and separation */
 .orbit {
   position: absolute;
-  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(255, 255, 255, 0.14);
   border-radius: 50%;
   pointer-events: none;
+  box-shadow: inset 0 0 25px rgba(96, 165, 250, 0.04);
 }
 
-.orbit-inner { width: 280px; height: 280px; }
-.orbit-middle { width: 480px; height: 480px; }
-.orbit-outer { width: 680px; height: 680px; }
+/* Much larger radii gaps to stop collapsing */
+.orbit-inner { width: 340px; height: 340px; }
+.orbit-middle { width: 620px; height: 620px; }
+.orbit-outer { width: 940px; height: 940px; }
 
 .skills-floating {
   position: absolute;
@@ -66,28 +77,29 @@
   justify-content: center;
 }
 
-/* Individual Nodes */
+/* Individual Nodes — Reduced size slightly for breathing room */
 .skill-orbit-node {
   position: absolute;
-  width: 65px;
-  height: 65px;
+  width: 58px;
+  height: 58px;
   z-index: 5;
+  transform-style: preserve-3d;
 }
 
-/* Orbital Motion */
+/* Orbital Motion radii match new orbit container sizes */
 .node-orbit-inner {
-  animation: orbital-rotate-inner 40s linear infinite;
-  --radius: 140px;
+  animation: orbital-rotate-inner 45s linear infinite;
+  --radius: 170px; /* half of 340 */
 }
 
 .node-orbit-middle {
-  animation: orbital-rotate-middle 60s linear infinite;
-  --radius: 240px;
+  animation: orbital-rotate-middle 65s linear infinite;
+  --radius: 310px; /* half of 620 */
 }
 
 .node-orbit-outer {
-  animation: orbital-rotate-outer 90s linear infinite;
-  --radius: 340px;
+  animation: orbital-rotate-outer 100s linear infinite;
+  --radius: 470px; /* half of 940 */
 }
 
 @keyframes orbital-rotate-inner {
@@ -108,10 +120,10 @@
 .skill-node-inner {
   width: 100%;
   height: 100%;
-  background: rgba(18, 18, 18, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 15, 30, 0.8) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -119,17 +131,18 @@
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
   position: relative;
+  transform: rotateX(-58deg);
 }
 
 .skill-node-inner:hover {
-  transform: scale(1.3);
+  transform: rotateX(-58deg) scale(1.3) translateZ(15px);
   border-color: var(--color);
-  box-shadow: 0 0 25px var(--color);
-  background: rgba(18, 18, 18, 0.9);
+  box-shadow: 0 0 30px var(--color);
+  background: rgba(18, 18, 18, 1) !important;
 }
 
 .skill-node-icon {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   color: var(--color);
   transition: transform 0.3s ease;
 }
@@ -140,15 +153,16 @@
 
 .skill-node-name {
   position: absolute;
-  top: 110%;
+  top: -45px; /* Move name above in 3D view */
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 800;
   color: #fff;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 4px 10px;
-  border-radius: 4px;
+  background: rgba(10, 15, 30, 0.9);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color);
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -157,7 +171,7 @@
 
 .skill-node-inner:hover .skill-node-name {
   opacity: 1;
-  transform: translateX(-50%) translateY(5px);
+  transform: translateX(-50%) translateY(-5px);
 }
 
 /* Animations from About */
