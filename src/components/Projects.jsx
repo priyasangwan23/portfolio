@@ -76,7 +76,7 @@ const ProjectTile = ({ project, index, activeVideo, setActiveVideo }) => {
           {activeVideo === index ? (
             <iframe
               className="pt-iframe"
-              src={`https://www.youtube.com/embed/${project.videoId}?autoplay=1`}
+              src={`https://www.youtube.com/embed/${project.videoId}?autoplay=1&mute=1&playsinline=1&rel=0`}
               title={`${project.title} demo`}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -144,122 +144,122 @@ const ProjectTile = ({ project, index, activeVideo, setActiveVideo }) => {
   )
 }
 
+const projects = [
+  // WITH VIDEO DEMOS (Moved to front)
+  {
+    title: "Calendly Clone",
+    description: "Full-featured scheduling app — book meetings, manage availability & sync calendars.",
+    link: "https://priya-calendly-clone.netlify.app",
+    github: "https://github.com/priyasangwan23",
+    tags: ["React", "Node.js", "MongoDB"],
+    icon: <FaCalendarCheck />,
+    featured: true,
+    videoId: "Jt_pGGo2rcs",
+    badge: "Featured",
+  },
+  {
+    title: "Flipkart Clone",
+    description: "E-commerce clone with product listings, cart & responsive shopping UI.",
+    link: "https://github.com/priyasangwan23/Projects/tree/main/Flipcart%20clone",
+    github: "https://github.com/priyasangwan23/Projects/tree/main/Flipcart%20clone",
+    tags: ["HTML", "CSS", "JavaScript"],
+    icon: <FaCartShopping />,
+    videoId: "axLChJO5xdA",
+  },
+  {
+    title: "MakerDao Clone",
+    description: "Sleek DeFi platform clone showcasing Web3 UI aesthetics & decentralized finance.",
+    link: "https://github.com/priyasangwan23/Projects/tree/main/MakerDao",
+    github: "https://github.com/priyasangwan23/Projects/tree/main/MakerDao",
+    tags: ["HTML", "CSS", "Web3 UI"],
+    icon: <FaBuildingColumns />,
+    videoId: "NOtO7EHXQUE",
+  },
+  {
+    title: "Policy Bazaar Clone",
+    description: "Insurance marketplace clone with comparison cards & multi-step navigation.",
+    link: "https://github.com/priyasangwan23/Projects/tree/main/clone-policy%20bazaar",
+    github: "https://github.com/priyasangwan23/Projects/tree/main/clone-policy%20bazaar",
+    tags: ["HTML", "CSS", "JavaScript"],
+    icon: <FaShieldHalved />,
+    videoId: "7PuzKDKpX0E",
+  },
+  {
+    title: "Codepen Clone",
+    description: "In-browser code editor with live HTML/CSS/JS preview & split-pane interface.",
+    link: "https://github.com/priyasangwan23/Projects/tree/main/codepen",
+    github: "https://github.com/priyasangwan23/Projects/tree/main/codepen",
+    tags: ["JavaScript", "CodeMirror", "Live Preview"],
+    icon: <FaCode />,
+    videoId: "zUL4Kl9PUwo",
+  },
+  {
+    title: "KiwiKisaan Clone",
+    description: "Agri-tech platform clone connecting farmers with markets via a clean modern UI.",
+    link: "https://github.com/priyasangwan23/Projects/tree/main/kiwi%20kisan",
+    github: "https://github.com/priyasangwan23/Projects/tree/main/kiwi%20kisan",
+    tags: ["HTML", "CSS", "AgriTech"],
+    icon: <FaSeedling />,
+    videoId: "D48R9AQi8iA",
+  },
+
+  // WITHOUT VIDEO DEMOS
+  {
+    title: "Routing Project",
+    description: "Dynamic routing with nested pages, seamless navigation & real API integration.",
+    link: "https://priya-routing-project.netlify.app",
+    github: "https://github.com/priyasangwan23",
+    tags: ["React", "React Router", "API"],
+    icon: <FaRoute />,
+    image: "https://www.themealdb.com/images/media/meals/0s80wo1764374393.jpg",
+  },
+  {
+    title: "Stranger Things",
+    description: "Fan-based web experience with atmospheric animations & eerie UI design.",
+    link: "https://priya-stranger-things.netlify.app",
+    github: "https://github.com/priyasangwan23/stranger-things",
+    tags: ["React", "API", "Entertainment"],
+    icon: <FaGhost />,
+    image: "https://www.brit.co/media-library/stranger-things-season-5-part-1-ending-will-byers-season-5.jpg?id=62260753&width=400&height=208",
+  },
+  {
+    title: "Drawing App",
+    description: "Canvas-based app for freehand drawing, shape tools & color palettes.",
+    link: "https://github.com/priyasangwan23/My-Projects/tree/main/Drawing%20App",
+    github: "https://github.com/priyasangwan23/My-Projects/tree/main/Drawing%20App",
+    tags: ["Canvas API", "JavaScript", "UI/UX"],
+    icon: <FaPalette />,
+  },
+  {
+    title: "Terminal Landing Page",
+    description: "Creative terminal-style landing page with typewriter effects & CLI aesthetics.",
+    link: "https://github.com/priyasangwan23/My-Projects/tree/main/Terminal%20style%20landing%20page",
+    github: "https://github.com/priyasangwan23/My-Projects/tree/main/Terminal%20style%20landing%20page",
+    tags: ["Creative", "JavaScript", "Terminal"],
+    icon: <FaTerminal />,
+  },
+  {
+    title: "Chrome Extensions",
+    description: "Productivity-boosting browser extensions that enhance everyday workflows.",
+    link: "https://github.com/priyasangwan23/Extensions",
+    github: "https://github.com/priyasangwan23/Extensions",
+    tags: ["Chrome API", "JavaScript", "Browser"],
+    icon: <FaPuzzlePiece />,
+  },
+  {
+    title: "Mini Games",
+    description: "Fun interactive browser games built with vanilla JS & Canvas API.",
+    link: "https://github.com/priyasangwan23/Games",
+    github: "https://github.com/priyasangwan23/Games",
+    tags: ["Games", "JavaScript", "Canvas"],
+    icon: <FaGamepad />,
+  },
+]
+
 /* ── Main section ─────────────────────────────────────────── */
 const Projects = () => {
   const sectionRef = useRef(null)
   const [activeVideo, setActiveVideo] = useState(null)
-
-  const projects = [
-    // WITH VIDEO DEMOS (Moved to front)
-    {
-      title: "Calendly Clone",
-      description: "Full-featured scheduling app — book meetings, manage availability & sync calendars.",
-      link: "https://priya-calendly-clone.netlify.app",
-      github: "https://github.com/priyasangwan23",
-      tags: ["React", "Node.js", "MongoDB"],
-      icon: <FaCalendarCheck />,
-      featured: true,
-      videoId: "Jt_pGGo2rcs",
-      badge: "Featured",
-    },
-    {
-      title: "Flipkart Clone",
-      description: "E-commerce clone with product listings, cart & responsive shopping UI.",
-      link: "https://github.com/priyasangwan23/Projects/tree/main/Flipcart%20clone",
-      github: "https://github.com/priyasangwan23/Projects/tree/main/Flipcart%20clone",
-      tags: ["HTML", "CSS", "JavaScript"],
-      icon: <FaCartShopping />,
-      videoId: "axLChJO5xdA",
-    },
-    {
-      title: "MakerDao Clone",
-      description: "Sleek DeFi platform clone showcasing Web3 UI aesthetics & decentralized finance.",
-      link: "https://github.com/priyasangwan23/Projects/tree/main/MakerDao",
-      github: "https://github.com/priyasangwan23/Projects/tree/main/MakerDao",
-      tags: ["HTML", "CSS", "Web3 UI"],
-      icon: <FaBuildingColumns />,
-      videoId: "NOtO7EHXQUE",
-    },
-    {
-      title: "Policy Bazaar Clone",
-      description: "Insurance marketplace clone with comparison cards & multi-step navigation.",
-      link: "https://github.com/priyasangwan23/Projects/tree/main/clone-policy%20bazaar",
-      github: "https://github.com/priyasangwan23/Projects/tree/main/clone-policy%20bazaar",
-      tags: ["HTML", "CSS", "JavaScript"],
-      icon: <FaShieldHalved />,
-      videoId: "7PuzKDKpX0E",
-    },
-    {
-      title: "Codepen Clone",
-      description: "In-browser code editor with live HTML/CSS/JS preview & split-pane interface.",
-      link: "https://github.com/priyasangwan23/Projects/tree/main/codepen",
-      github: "https://github.com/priyasangwan23/Projects/tree/main/codepen",
-      tags: ["JavaScript", "CodeMirror", "Live Preview"],
-      icon: <FaCode />,
-      videoId: "zUL4Kl9PUwo",
-    },
-    {
-      title: "KiwiKisaan Clone",
-      description: "Agri-tech platform clone connecting farmers with markets via a clean modern UI.",
-      link: "https://github.com/priyasangwan23/Projects/tree/main/kiwi%20kisan",
-      github: "https://github.com/priyasangwan23/Projects/tree/main/kiwi%20kisan",
-      tags: ["HTML", "CSS", "AgriTech"],
-      icon: <FaSeedling />,
-      videoId: "D48R9AQi8iA",
-    },
-
-    // WITHOUT VIDEO DEMOS
-    {
-      title: "Routing Project",
-      description: "Dynamic routing with nested pages, seamless navigation & real API integration.",
-      link: "https://priya-routing-project.netlify.app",
-      github: "https://github.com/priyasangwan23",
-      tags: ["React", "React Router", "API"],
-      icon: <FaRoute />,
-      image: "https://www.themealdb.com/images/media/meals/0s80wo1764374393.jpg",
-    },
-    {
-      title: "Stranger Things",
-      description: "Fan-based web experience with atmospheric animations & eerie UI design.",
-      link: "https://priya-stranger-things.netlify.app",
-      github: "https://github.com/priyasangwan23/stranger-things",
-      tags: ["React", "API", "Entertainment"],
-      icon: <FaGhost />,
-      image: "https://www.brit.co/media-library/stranger-things-season-5-part-1-ending-will-byers-season-5.jpg?id=62260753&width=400&height=208",
-    },
-    {
-      title: "Drawing App",
-      description: "Canvas-based app for freehand drawing, shape tools & color palettes.",
-      link: "https://github.com/priyasangwan23/My-Projects/tree/main/Drawing%20App",
-      github: "https://github.com/priyasangwan23/My-Projects/tree/main/Drawing%20App",
-      tags: ["Canvas API", "JavaScript", "UI/UX"],
-      icon: <FaPalette />,
-    },
-    {
-      title: "Terminal Landing Page",
-      description: "Creative terminal-style landing page with typewriter effects & CLI aesthetics.",
-      link: "https://github.com/priyasangwan23/My-Projects/tree/main/Terminal%20style%20landing%20page",
-      github: "https://github.com/priyasangwan23/My-Projects/tree/main/Terminal%20style%20landing%20page",
-      tags: ["Creative", "JavaScript", "Terminal"],
-      icon: <FaTerminal />,
-    },
-    {
-      title: "Chrome Extensions",
-      description: "Productivity-boosting browser extensions that enhance everyday workflows.",
-      link: "https://github.com/priyasangwan23/Extensions",
-      github: "https://github.com/priyasangwan23/Extensions",
-      tags: ["Chrome API", "JavaScript", "Browser"],
-      icon: <FaPuzzlePiece />,
-    },
-    {
-      title: "Mini Games",
-      description: "Fun interactive browser games built with vanilla JS & Canvas API.",
-      link: "https://github.com/priyasangwan23/Games",
-      github: "https://github.com/priyasangwan23/Games",
-      tags: ["Games", "JavaScript", "Canvas"],
-      icon: <FaGamepad />,
-    },
-  ]
 
   useEffect(() => {
     const observer = new IntersectionObserver(
