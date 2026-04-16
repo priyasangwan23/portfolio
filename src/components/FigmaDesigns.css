@@ -1,0 +1,443 @@
+/* ============================================================
+   FIGMA DESIGNS SECTION
+   ============================================================ */
+
+.figma-section {
+  padding: 80px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Scroll animations ── */
+.figma-animate {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--item-delay, 0s);
+}
+
+.figma-animate.fade-up {
+  transform: translateY(40px);
+}
+
+.figma-animate.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Section Header ── */
+.figma-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.figma-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #a259ff;
+  background: rgba(162, 89, 255, 0.08);
+  border: 1px solid rgba(162, 89, 255, 0.2);
+  padding: 5px 18px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+}
+
+.eyebrow-icon {
+  font-size: 1rem;
+}
+
+.figma-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted, #94a3b8);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+/* ── 3D Carousel Scene ── */
+.figma-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.figma-carousel-scene {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+/* ── Carousel Nav Buttons ── */
+.figma-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(17, 24, 39, 0.7);
+  border: 1px solid rgba(162, 89, 255, 0.4);
+  color: #a259ff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.figma-nav-btn:hover {
+  background: rgba(162, 89, 255, 0.2);
+  color: #fff;
+  border-color: #c084fc;
+  box-shadow: 0 0 20px rgba(162, 89, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.figma-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.figma-nav-left {
+  left: 10px;
+}
+
+.figma-nav-right {
+  right: 10px;
+}
+
+/* ── Carousel Cards ── */
+.figma-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 560px;
+  text-decoration: none;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.6s cubic-bezier(0.34, 1.06, 0.54, 1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+/* 3D Stack Positioning Logic */
+.figma-focused {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  z-index: 5;
+  filter: blur(0);
+}
+.figma-focused:hover {
+  transform: translateX(0) scale(1.02);
+  box-shadow: 0 20px 60px rgba(162, 89, 255, 0.15),
+              0 8px 25px rgba(59, 130, 246, 0.1);
+}
+
+.figma-left {
+  transform: translateX(-55%) scale(0.85);
+  opacity: 0.5;
+  z-index: 3;
+  filter: blur(4px);
+  cursor: pointer;
+}
+.figma-left:hover {
+  opacity: 0.8;
+  filter: blur(2px);
+  transform: translateX(-55%) scale(0.88);
+}
+
+.figma-right {
+  transform: translateX(55%) scale(0.85);
+  opacity: 0.5;
+  z-index: 3;
+  filter: blur(4px);
+  cursor: pointer;
+}
+.figma-right:hover {
+  opacity: 0.8;
+  filter: blur(2px);
+  transform: translateX(55%) scale(0.88);
+}
+
+.figma-hidden {
+  transform: translateX(0) scale(0.6);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Animated gradient border */
+.figma-card-border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    rgba(162, 89, 255, 0.4),
+    rgba(59, 130, 246, 0.3),
+    rgba(162, 89, 255, 0.2),
+    rgba(129, 140, 248, 0.3)
+  );
+  background-size: 300% 300%;
+  animation: figmaBorderFlow 6s ease infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes figmaBorderFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.figma-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(162, 89, 255, 0.15),
+              0 8px 25px rgba(59, 130, 246, 0.1);
+}
+
+/* ── Image Container ── */
+.figma-card-image {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Fixed height for consistent look */
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.figma-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Prevents scaling/blur if the image is narrow */
+  object-position: center;
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+
+.figma-card:hover .figma-card-image img {
+  transform: scale(1.03); /* Subtle scale to avoid blur on hover */
+  filter: brightness(0.7);
+}
+
+/* ── Overlay ── */
+.figma-card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.figma-card:hover .figma-card-overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  background: rgba(162, 89, 255, 0.2);
+  border: 1px solid rgba(162, 89, 255, 0.5);
+  border-radius: 50px;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.figma-card:hover .overlay-content {
+  transform: translateY(0);
+}
+
+.overlay-figma-icon {
+  font-size: 1.4rem;
+  color: #a259ff;
+}
+
+.overlay-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.03em;
+}
+
+.overlay-link-icon {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Card Info ── */
+.figma-card-info {
+  padding: 24px 28px 28px;
+}
+
+.figma-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.meta-icon {
+  font-size: 1rem;
+  color: #a259ff;
+}
+
+.meta-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a259ff;
+  background: rgba(162, 89, 255, 0.1);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.figma-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary, #f1f5f9);
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.figma-card:hover .figma-card-title {
+  color: #a259ff;
+}
+
+.figma-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted, #94a3b8);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+
+/* ── CTA ── */
+.figma-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #a259ff;
+  transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.figma-card:hover .figma-card-cta {
+  gap: 12px;
+  color: #c084fc;
+}
+
+.cta-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.figma-card:hover .cta-arrow {
+  transform: translateX(3px) translateY(-2px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .figma-left {
+    transform: translateX(-35%) scale(0.8);
+  }
+  .figma-right {
+    transform: translateX(35%) scale(0.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .figma-section {
+    padding: 60px 0 40px;
+  }
+
+  .figma-carousel-scene {
+    height: 580px;
+  }
+
+  .figma-card {
+    max-width: 85%;
+    border-radius: 16px;
+  }
+
+  .figma-left {
+    transform: translateX(-25%) scale(0.8);
+    opacity: 0.3;
+  }
+  .figma-right {
+    transform: translateX(25%) scale(0.8);
+    opacity: 0.3;
+  }
+
+  .figma-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .figma-card-info {
+    padding: 20px 22px 24px;
+  }
+
+  .figma-card-title {
+    font-size: 1.2rem;
+  }
+
+  .figma-card-desc {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .figma-card-image {
+    aspect-ratio: 16 / 11;
+  }
+
+  .figma-card-info {
+    padding: 16px 18px 20px;
+  }
+
+  .overlay-content {
+    padding: 10px 22px;
+  }
+
+  .overlay-text {
+    font-size: 0.9rem;
+  }
+}

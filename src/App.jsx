@@ -4,7 +4,9 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
+import FigmaDesigns from './components/FigmaDesigns'
 import Education from './components/Education'
+import Certificates from './components/Certificates'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
@@ -48,7 +50,9 @@ function App() {
         <section id="about"     className="fade-in"><About /></section>
         <section id="skills"    className="fade-in"><Skills /></section>
         <section id="projects"  className="fade-in"><Projects /></section>
+        <section id="designs"   className="fade-in"><FigmaDesigns /></section>
         <section id="education" className="fade-in"><Education /></section>
+        <section id="certificates" className="fade-in"><Certificates /></section>
         <section id="contact"   className="fade-in"><Contact /></section>
       </main>
       <Footer />

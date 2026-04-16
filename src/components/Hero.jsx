@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { FaArrowRight, FaEnvelope } from 'react-icons/fa'
+import { FaArrowRight, FaEnvelope, FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { SiLeetcode } from 'react-icons/si'
 import './Hero.css'
 
 const TYPED_NAME = 'Priya Sangwan'
@@ -106,6 +107,24 @@ const Hero = () => {
                   <FaEnvelope className="hero-btn-icon" />
                   Get In Touch
                 </span>
+              </a>
+            </div>
+
+            <div className="hero-socials">
+              <a href="https://github.com/priyasangwan23" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="GitHub" style={{'--i': 0}}>
+                <FaGithub />
+              </a>
+              <a href="https://www.linkedin.com/in/priya-sangwan-a38037395" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="LinkedIn" style={{'--i': 1}}>
+                <FaLinkedin />
+              </a>
+              <a href="https://x.com/Priyaasangwan" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="Twitter" style={{'--i': 2}}>
+                <FaTwitter />
+              </a>
+              <a href="https://www.youtube.com/@Priyaaa-90" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="YouTube" style={{'--i': 3}}>
+                <FaYoutube />
+              </a>
+              <a href="https://leetcode.com/u/priyasangwan23/" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="LeetCode" style={{'--i': 4}}>
+                <SiLeetcode />
               </a>
             </div>
 

@@ -346,6 +346,138 @@
   to   { transform: translate(20px, 30px) scale(1.1); }
 }
 
+/* ── Download Resume Button — Premium ── */
+.about-resume {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.about-resume-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(15, 23, 42, 0.7);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease;
+  z-index: 1;
+  isolation: isolate;
+}
+
+/* ── Animated gradient border ── */
+.about-resume-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    270deg, #3b82f6, #818cf8, #a78bfa, #60a5fa, #3b82f6
+  );
+  background-size: 400% 400%;
+  animation: borderSpin 4s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+@keyframes borderSpin {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+/* ── Shimmer sweep ── */
+.resume-btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.12) 60%,
+    transparent 100%
+  );
+  animation: shimmerSweep 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes shimmerSweep {
+  0%   { left: -100%; }
+  50%  { left: 150%; }
+  100% { left: 150%; }
+}
+
+/* ── Pulsing outer glow ── */
+.about-resume-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: transparent;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25),
+              0 0 40px rgba(129, 140, 248, 0.1);
+  animation: glowPulseBtn 2.5s ease-in-out infinite alternate;
+  z-index: -2;
+  pointer-events: none;
+}
+
+@keyframes glowPulseBtn {
+  from { opacity: 0.4; transform: scale(0.98); }
+  to   { opacity: 1;   transform: scale(1.02); }
+}
+
+/* ── Hover state ── */
+.about-resume-btn:hover {
+  transform: translateY(-5px) scale(1.06);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.5),
+              0 4px 15px rgba(129, 140, 248, 0.3);
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.about-resume-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* ── Download icon bounce ── */
+.resume-btn-dl-icon {
+  font-size: 1.05rem;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0); }
+  30%      { transform: translateY(3px); }
+  50%      { transform: translateY(-2px); }
+  70%      { transform: translateY(2px); }
+}
+
+.about-resume-btn:hover .resume-btn-dl-icon {
+  animation: none;
+  transform: translateY(3px) scale(1.15);
+  transition: all 0.3s ease;
+}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */

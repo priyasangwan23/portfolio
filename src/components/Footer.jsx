@@ -1,4 +1,5 @@
 import { FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { SiLeetcode } from 'react-icons/si'
 import './Footer.css'
 
 const Footer = () => {
@@ -44,6 +45,14 @@ const Footer = () => {
               className="social-icon"
             >
               <FaYoutube />
+            </a>
+            <a
+              href="https://leetcode.com/u/priyasangwan23/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon"
+            >
+              <SiLeetcode />
             </a>
           </div>
           

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { FaCode, FaGraduationCap, FaGlobe } from 'react-icons/fa'
+import { FaCode, FaGraduationCap, FaGlobe, FaDownload } from 'react-icons/fa'
 import './About.css'
 
 const stats = [
@@ -151,6 +151,15 @@ const About = () => {
                   </span>
                 ))}
               </div>
+            </div>
+
+            {/* Download Resume */}
+            <div className="about-resume animate-on-scroll fade-up">
+              <a href="/resume.pdf" download className="about-resume-btn">
+                <span className="resume-btn-glow" />
+                <FaDownload className="resume-btn-dl-icon" />
+                Download Resume
+              </a>
             </div>
 
             {/* Decorative glow orb */}
