@@ -160,7 +160,7 @@ const projects = [
   {
     title: "Flipkart Clone",
     description: "E-commerce clone with product listings, cart & responsive shopping UI.",
-    link: "https://github.com/priyasangwan23/Projects/tree/main/Flipcart%20clone",
+    link: "https://priya-flipcart-clone.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/Flipcart%20clone",
     tags: ["HTML", "CSS", "JavaScript"],
     icon: <FaCartShopping />,
@@ -169,7 +169,7 @@ const projects = [
   {
     title: "MakerDao Clone",
     description: "Sleek DeFi platform clone showcasing Web3 UI aesthetics & decentralized finance.",
-    link: "https://github.com/priyasangwan23/Projects/tree/main/MakerDao",
+    link: "https://priya-makerdao-clone.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/MakerDao",
     tags: ["HTML", "CSS", "Web3 UI"],
     icon: <FaBuildingColumns />,
@@ -178,7 +178,7 @@ const projects = [
   {
     title: "Policy Bazaar Clone",
     description: "Insurance marketplace clone with comparison cards & multi-step navigation.",
-    link: "https://github.com/priyasangwan23/Projects/tree/main/clone-policy%20bazaar",
+    link: "https://exquisite-gingersnap-6e6e4c.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/clone-policy%20bazaar",
     tags: ["HTML", "CSS", "JavaScript"],
     icon: <FaShieldHalved />,
@@ -187,7 +187,7 @@ const projects = [
   {
     title: "Codepen Clone",
     description: "In-browser code editor with live HTML/CSS/JS preview & split-pane interface.",
-    link: "https://github.com/priyasangwan23/Projects/tree/main/codepen",
+    link: "https://priya-codepen-clone.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/codepen",
     tags: ["JavaScript", "CodeMirror", "Live Preview"],
     icon: <FaCode />,
@@ -196,7 +196,7 @@ const projects = [
   {
     title: "KiwiKisaan Clone",
     description: "Agri-tech platform clone connecting farmers with markets via a clean modern UI.",
-    link: "https://github.com/priyasangwan23/Projects/tree/main/kiwi%20kisan",
+    link: "https://priya-kiwi-kisaan-clone.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/kiwi%20kisan",
     tags: ["HTML", "CSS", "AgriTech"],
     icon: <FaSeedling />,
