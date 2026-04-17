@@ -27,17 +27,14 @@ Technologies used in this project:
 * React.js 
 * Git & GitHub
 
-
-
-```
+---
 
 ## 🌍 Live Demo
 
-You can view the live portfolio here:
-
-🔗 https://portfolio-priyasangwan.netlify.app/
+https://priya-sangwan.vercel.app/
 
 
+---
 
 ## 📬 Contact
 
