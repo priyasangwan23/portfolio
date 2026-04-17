@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import './Header.css'
 
-const Header = ({ activeSection, setActiveSection }) => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -23,13 +24,8 @@ const Header = ({ activeSection, setActiveSection }) => {
     { id: 'contact', label: 'Contact' },
   ]
 
-  const handleNavClick = (sectionId) => {
-    setActiveSection(sectionId)
+  const handleNavClick = () => {
     setIsMenuOpen(false)
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
   }
 
   return (
@@ -39,7 +35,7 @@ const Header = ({ activeSection, setActiveSection }) => {
 
       <nav className="navbar container">
         {/* Logo — Left */}
-        <div className="nav-logo" onClick={() => handleNavClick('home')}>
+        <Link className="nav-logo" to="/" onClick={() => setIsMenuOpen(false)}>
           <div className="logo-image-wrapper">
             <img
               src="https://res.cloudinary.com/dlx4sw12g/image/upload/v1770362923/priya_pic_xwpxno.jpg"
@@ -48,20 +44,21 @@ const Header = ({ activeSection, setActiveSection }) => {
             />
             <div className="logo-ring"></div>
           </div>
-        </div>
+        </Link>
 
         {/* Nav Links — Center */}
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
           {navItems.map((item, index) => (
-            <button
+            <NavLink
               key={item.id}
-              onClick={() => handleNavClick(item.id)}
-              className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+              to={item.id === 'home' ? '/' : `/${item.id}`}
+              onClick={handleNavClick}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
               style={{ '--delay': `${index * 0.07}s` }}
             >
               <span className="nav-link-text">{item.label}</span>
               <span className="nav-link-underline" />
-            </button>
+            </NavLink>
           ))}
           
           {/* Mobile-only Resume Button inside menu */}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { FaArrowRight, FaEnvelope, FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { SiLeetcode } from 'react-icons/si'
 import './Hero.css'
@@ -93,21 +94,21 @@ const Hero = () => {
             </div>
 
             <div className="hero-buttons">
-              <a href="#projects" className="hero-btn hero-btn-primary">
+              <Link to="/projects" className="hero-btn hero-btn-primary">
                 <span className="hero-btn-bg" />
                 <span className="hero-btn-content">
                   View My Work
                   <span className="hero-btn-arrow"><FaArrowRight /></span>
                 </span>
                 <span className="hero-btn-ripple" />
-              </a>
-              <a href="#contact" className="hero-btn hero-btn-ghost">
+              </Link>
+              <Link to="/contact" className="hero-btn hero-btn-ghost">
                 <span className="hero-btn-border" />
                 <span className="hero-btn-content">
                   <FaEnvelope className="hero-btn-icon" />
                   Get In Touch
                 </span>
-              </a>
+              </Link>
             </div>
 
             <div className="hero-socials">

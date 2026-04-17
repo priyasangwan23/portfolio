@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -14,27 +15,11 @@ import BackgroundCanvas from './components/BackgroundCanvas'
 import './App.css'
 
 function App() {
-  const [activeSection, setActiveSection] = useState('home')
+  const location = useLocation();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
-          }
-        })
-      },
-      { 
-        threshold: 0.1,
-        rootMargin: '-10% 0px -70% 0px' 
-      }
-    )
-
-    const sections = document.querySelectorAll('main > section')
-    sections.forEach((section) => observer.observe(section))
-    return () => sections.forEach((section) => observer.unobserve(section))
-  }, [])
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="app">
@@ -44,16 +29,18 @@ function App() {
       {/* ── Canvas interactive background ── */}
       <BackgroundCanvas />
 
-      <Header activeSection={activeSection} setActiveSection={setActiveSection} />
+      <Header />
       <main>
-        <section id="home"      className="fade-in"><Hero /></section>
-        <section id="about"     className="fade-in"><About /></section>
-        <section id="skills"    className="fade-in"><Skills /></section>
-        <section id="projects"  className="fade-in"><Projects /></section>
-        <section id="designs"   className="fade-in"><FigmaDesigns /></section>
-        <section id="education" className="fade-in"><Education /></section>
-        <section id="certificates" className="fade-in"><Certificates /></section>
-        <section id="contact"   className="fade-in"><Contact /></section>
+        <Routes>
+          <Route path="/" element={<section id="home" className="fade-in"><Hero /></section>} />
+          <Route path="/about" element={<section id="about" className="fade-in"><About /></section>} />
+          <Route path="/skills" element={<section id="skills" className="fade-in"><Skills /></section>} />
+          <Route path="/projects" element={<section id="projects" className="fade-in"><Projects /></section>} />
+          <Route path="/designs" element={<section id="designs" className="fade-in"><FigmaDesigns /></section>} />
+          <Route path="/education" element={<section id="education" className="fade-in"><Education /></section>} />
+          <Route path="/certificates" element={<section id="certificates" className="fade-in"><Certificates /></section>} />
+          <Route path="/contact" element={<section id="contact" className="fade-in"><Contact /></section>} />
+        </Routes>
       </main>
       <Footer />
     </div>
