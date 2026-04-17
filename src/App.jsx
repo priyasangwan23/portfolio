@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -16,32 +16,72 @@ import './App.css'
 
 function App() {
   const location = useLocation();
+  const [activeSection, setActiveSection] = useState('home');
 
+  // 1. Initial Scroll (when visiting a URL directly or navigating via clicks)
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const path = location.pathname.replace('/', '');
+    const sectionId = path === '' ? 'home' : path;
+    
+    // Update state to match URL immediately on link click/direct load
+    setActiveSection(sectionId);
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   }, [location.pathname]);
+
+  // 2. Scroll Spy: Updates the Navbar and URL while scrolling manually
+  useEffect(() => {
+    const observerOptions = {
+      // Look at the middle portion of the screen
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          setActiveSection(sectionId);
+
+          // Update URL silently in browser history for SEO
+          const newPath = sectionId === 'home' ? '/' : `/${sectionId}`;
+          if (window.location.pathname !== newPath) {
+            window.history.replaceState(null, '', newPath);
+          }
+        }
+      });
+    }, observerOptions);
+
+    const sections = document.querySelectorAll('main > section');
+    sections.forEach((section) => observer.observe(section));
+    
+    return () => sections.forEach((section) => observer.unobserve(section));
+  }, []);
 
   return (
     <div className="app">
-      {/* ── Custom cursor ── */}
       <CustomCursor />
-
-      {/* ── Canvas interactive background ── */}
       <BackgroundCanvas />
 
-      <Header />
+      {/* Header receives the activeSection state for highlight logic */}
+      <Header activeSection={activeSection} />
+      
       <main>
-        <Routes>
-          <Route path="/" element={<section id="home" className="fade-in"><Hero /></section>} />
-          <Route path="/about" element={<section id="about" className="fade-in"><About /></section>} />
-          <Route path="/skills" element={<section id="skills" className="fade-in"><Skills /></section>} />
-          <Route path="/projects" element={<section id="projects" className="fade-in"><Projects /></section>} />
-          <Route path="/designs" element={<section id="designs" className="fade-in"><FigmaDesigns /></section>} />
-          <Route path="/education" element={<section id="education" className="fade-in"><Education /></section>} />
-          <Route path="/certificates" element={<section id="certificates" className="fade-in"><Certificates /></section>} />
-          <Route path="/contact" element={<section id="contact" className="fade-in"><Contact /></section>} />
-        </Routes>
+        <section id="home" className="fade-in"><Hero /></section>
+        <section id="about" className="fade-in"><About /></section>
+        <section id="skills" className="fade-in"><Skills /></section>
+        <section id="projects" className="fade-in"><Projects /></section>
+        <section id="designs" className="fade-in"><FigmaDesigns /></section>
+        <section id="education" className="fade-in"><Education /></section>
+        <section id="certificates" className="fade-in"><Certificates /></section>
+        <section id="contact" className="fade-in"><Contact /></section>
       </main>
+      
       <Footer />
     </div>
   )

@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import './Header.css'
 
-const Header = () => {
+const Header = ({ activeSection }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -53,7 +53,8 @@ const Header = () => {
               key={item.id}
               to={item.id === 'home' ? '/' : `/${item.id}`}
               onClick={handleNavClick}
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              // Rely purely on activeSection for the visual 'active' state to stay perfectly synced with scroll
+              className={() => `nav-link ${activeSection === item.id ? 'active' : ''}`}
               style={{ '--delay': `${index * 0.07}s` }}
             >
               <span className="nav-link-text">{item.label}</span>
