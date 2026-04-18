@@ -145,13 +145,14 @@ const ProjectTile = ({ project, index, activeVideo, setActiveVideo }) => {
 }
 
 const projects = [
-  // WITH VIDEO DEMOS (Moved to front)
+  // WITH VIDEO DEMOS
   {
     title: "Calendly Clone",
     description: "Full-featured scheduling app — book meetings, manage availability & sync calendars.",
     link: "https://priya-calendly-clone.netlify.app",
     github: "https://github.com/priyasangwan23",
-    tags: ["React", "Node.js", "MongoDB"],
+    tags: ["HTML", "CSS", "JavaScript"],
+    category: "clones",
     icon: <FaCalendarCheck />,
     featured: true,
     videoId: "Jt_pGGo2rcs",
@@ -163,6 +164,7 @@ const projects = [
     link: "https://priya-flipcart-clone.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/Flipcart%20clone",
     tags: ["HTML", "CSS", "JavaScript"],
+    category: "clones",
     icon: <FaCartShopping />,
     videoId: "axLChJO5xdA",
   },
@@ -172,6 +174,7 @@ const projects = [
     link: "https://priya-makerdao-clone.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/MakerDao",
     tags: ["HTML", "CSS", "Web3 UI"],
+    category: "clones",
     icon: <FaBuildingColumns />,
     videoId: "NOtO7EHXQUE",
   },
@@ -181,6 +184,7 @@ const projects = [
     link: "https://exquisite-gingersnap-6e6e4c.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/clone-policy%20bazaar",
     tags: ["HTML", "CSS", "JavaScript"],
+    category: "clones",
     icon: <FaShieldHalved />,
     videoId: "7PuzKDKpX0E",
   },
@@ -189,7 +193,8 @@ const projects = [
     description: "In-browser code editor with live HTML/CSS/JS preview & split-pane interface.",
     link: "https://priya-codepen-clone.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/codepen",
-    tags: ["JavaScript", "CodeMirror", "Live Preview"],
+    tags: ["HTML", "CSS", "JavaScript"],
+    category: "clones",
     icon: <FaCode />,
     videoId: "zUL4Kl9PUwo",
   },
@@ -199,6 +204,7 @@ const projects = [
     link: "https://priya-kiwi-kisaan-clone.netlify.app",
     github: "https://github.com/priyasangwan23/Projects/tree/main/kiwi%20kisan",
     tags: ["HTML", "CSS", "AgriTech"],
+    category: "clones",
     icon: <FaSeedling />,
     videoId: "D48R9AQi8iA",
   },
@@ -210,6 +216,7 @@ const projects = [
     link: "https://priya-routing-project.netlify.app",
     github: "https://github.com/priyasangwan23",
     tags: ["React", "React Router", "API"],
+    category: "react",
     icon: <FaRoute />,
     image: "https://www.themealdb.com/images/media/meals/0s80wo1764374393.jpg",
   },
@@ -219,6 +226,7 @@ const projects = [
     link: "https://priya-stranger-things.netlify.app",
     github: "https://github.com/priyasangwan23/stranger-things",
     tags: ["React", "API", "Entertainment"],
+    category: "react",
     icon: <FaGhost />,
     image: "https://www.brit.co/media-library/stranger-things-season-5-part-1-ending-will-byers-season-5.jpg?id=62260753&width=400&height=208",
   },
@@ -228,6 +236,7 @@ const projects = [
     link: "https://github.com/priyasangwan23/My-Projects/tree/main/Drawing%20App",
     github: "https://github.com/priyasangwan23/My-Projects/tree/main/Drawing%20App",
     tags: ["Canvas API", "JavaScript", "UI/UX"],
+    category: "js",
     icon: <FaPalette />,
   },
   {
@@ -236,6 +245,7 @@ const projects = [
     link: "https://github.com/priyasangwan23/My-Projects/tree/main/Terminal%20style%20landing%20page",
     github: "https://github.com/priyasangwan23/My-Projects/tree/main/Terminal%20style%20landing%20page",
     tags: ["Creative", "JavaScript", "Terminal"],
+    category: "js",
     icon: <FaTerminal />,
   },
   {
@@ -244,6 +254,7 @@ const projects = [
     link: "https://github.com/priyasangwan23/Extensions",
     github: "https://github.com/priyasangwan23/Extensions",
     tags: ["Chrome API", "JavaScript", "Browser"],
+    category: "js",
     icon: <FaPuzzlePiece />,
   },
   {
@@ -252,14 +263,17 @@ const projects = [
     link: "https://github.com/priyasangwan23/Games",
     github: "https://github.com/priyasangwan23/Games",
     tags: ["Games", "JavaScript", "Canvas"],
+    category: "js",
     icon: <FaGamepad />,
   },
 ]
+
 
 /* ── Main section ─────────────────────────────────────────── */
 const Projects = () => {
   const sectionRef = useRef(null)
   const [activeVideo, setActiveVideo] = useState(null)
+  const [activeCategory, setActiveCategory] = useState('all')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -277,6 +291,17 @@ const Projects = () => {
     return () => els.forEach(el => observer.unobserve(el))
   }, [])
 
+  const filteredProjects = activeCategory === 'all' 
+    ? projects 
+    : projects.filter(p => p.category === activeCategory)
+
+  const categories = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'react', label: 'React & Fullstack' },
+    { id: 'clones', label: 'Clones (HTML/CSS)' },
+    { id: 'js', label: 'JavaScript & Creative' }
+  ]
+
   return (
     <section className="projects" ref={sectionRef} id="projects">
       <div className="container">
@@ -287,11 +312,25 @@ const Projects = () => {
           Ideas turned into real-world applications
         </p>
 
+        {/* Filter Tabs */}
+        <div className="projects-filters animate-on-scroll fade-up">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              className={`filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat.id)}
+            >
+              {cat.label}
+              {activeCategory === cat.id && <span className="filter-dot"></span>}
+            </button>
+          ))}
+        </div>
+
         <div className="projects-grid">
-          {projects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <div 
-              key={index} 
-              className="animate-on-scroll fade-up"
+              key={`${activeCategory}-${index}`} 
+              className="animate-on-scroll visible fade-up"
               style={{ '--item-delay': `${(index % 3) * 0.1}s` }}
             >
               <ProjectTile
